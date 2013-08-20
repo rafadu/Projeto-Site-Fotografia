@@ -1,0 +1,1 @@
+aqui ficam as views, páginas html, estilos, imagens (usadas para o design)
