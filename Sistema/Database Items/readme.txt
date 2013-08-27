@@ -1,0 +1,1 @@
+Aqui ficam os documentos envolvendo unicamente o banco de dados.
