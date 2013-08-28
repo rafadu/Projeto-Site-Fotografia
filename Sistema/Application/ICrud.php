@@ -12,12 +12,15 @@
  */
 namespace Application;
     interface ICrud {
-        //put your code here
-    
-        public function create($classe);
-        public function read($key,$value);
-        public function update($classe);
-        public function delete($key,$value);
+        //object -> instancia de algum Data Object
+        //key -> nome da coluna -> valor de parametro para coluna
+        //isText -> booleano para determinar se value é string. 
+        //(se sim, altera a forma de escrever a query)
+        
+        public function create($object);
+        public function read($key,$value,$isText);
+        public function update($object);
+        public function delete($key,$value,$isText);
     }
 
 ?>
