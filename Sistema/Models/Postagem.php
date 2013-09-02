@@ -4,7 +4,7 @@
 *
 * @author Lucas
 */
-clss PostagemModel implements Application\ICrud{
+class PostagemModel implements Application\ICrud{
      public function create(Data\Object\Postagem $object) {
          try{
              //query de insert
