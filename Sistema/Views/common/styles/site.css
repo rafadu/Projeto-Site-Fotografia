@@ -1,0 +1,42 @@
+
+@import url(http://fonts.googleapis.com/css?family=Milonga);
+@import url(http://fonts.googleapis.com/css?family=Fresca);
+@import url(http://fonts.googleapis.com/css?family=Gabriela);
+@import url(http://fonts.googleapis.com/css?family=Noto+Sans); 
+
+*{font-family: "Noto", sans-serif;text-decoration: none;list-style: none;}
+h1 {font-family: "Gabriela" sans-serif;font-size: 18px;text-align: center;}
+h2 {font-family: "Fresca" sans-serif;color: #FF88BB;text-align: center;}
+article{padding: 15px;}
+article p,a{font-family: "Fresca" sans-serif;}
+article a{color: #FF88BB;}
+article img{max-width: 100px;max-height: 150px;}
+footer{text-align: center;font-family: "Fresca" sans-serif;}
+h3{text-align: center;color: #FF88BB;}
+p{text-align: justify;}
+nav ul{padding: 0px;margin: 0px;}
+nav ul li{display: inline;}
+nav ul li a{/*Posicionamento dos itens do menu*/padding: 2px 10px;display: inline-block;/*Estilo dos itens*/font-family: "Fresca" sans-serif;color: #FF88BB;text-align: right;}
+aside section nav ul li a img{padding: 5px;}
+
+/*Posicionamento do site e de seus elementos*/
+#main{width: 600px;float: left;x}
+#geral{width: 900px;margin: 20px auto 0 auto;}
+aside{float: right;}
+#parceiros img{height: 50px;width: 150px;}
+article ul{padding: 0px;margin: 0px;}
+article ul li{display: inline;}
+article ul li img{padding: 2px 2px;display: inline-block;}
+footer{clear: both;}
+header nav{margin-bottom:10px;}
+header nav,#main,aside{padding-top: 20px;}
+article h2{margin-bottom: 20px;}
+article #miniImagens{margin-top: 20px;}
+article #taglist{margin: 15px 0 15px 0;}
+article>a{margin-top: 50px;}
+footer{padding-top: 20px;}
+
+/*Hovers*/
+article:hover{background-color: #EEE;border-radius: 15px;}
+header nav ul li a:hover{background-color: #EEE;border-radius: 5px;}
+aside section nav ul li a img:hover{background-color: #EEE;border-radius: 5px;}
