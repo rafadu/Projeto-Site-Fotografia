@@ -25,7 +25,7 @@ class PostagemModel implements Application\ICrud{
      public function delete($key, $value, $isText) {
          try{
              //varivel de delete
-             $query="DELETE FROM postagem WHERE $key = "
+             $query="DELETE FROM postagem WHERE $key = ";
              //se o tipo de dado de value for texto, este valor precisa na query
              //estar entre aspas, do contrario a operação não será realizada
              if ($isText)
