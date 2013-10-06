@@ -1,22 +1,16 @@
-
-@import url(http://fonts.googleapis.com/css?family=Milonga);
-@import url(http://fonts.googleapis.com/css?family=Fresca);
-@import url(http://fonts.googleapis.com/css?family=Gabriela);
-@import url(http://fonts.googleapis.com/css?family=Noto+Sans); 
-
-*{font-family: "Noto", sans-serif;text-decoration: none;list-style: none;}
-h1 {font-family: "Gabriela" sans-serif;font-size: 18px;text-align: center;}
-h2 {font-family: "Fresca" sans-serif;color: #FF88BB;text-align: center;}
+*{font-family: "Trebuchet MS", Tahoma, Arial, Helvetica, sans-serif;text-decoration: none;list-style: none;}
+h1 {font-family: "Trebuchet MS", Tahoma, Arial, Helvetica, sans-serif;font-size: 18px;text-align: center;}
+h2 {font-family: "Trebuchet MS", Tahoma, Arial, Helvetica, sans-serif;color: #9900CC;text-align: center;}
 article{padding: 15px;}
-article p,a{font-family: "Fresca" sans-serif;}
-article a{color: #FF88BB;}
+article p,a{font-family: "Trebuchet MS", Tahoma, Arial, Helvetica, sans-serif;}
+article a{color: #9900CC;}
 article img{max-width: 100px;max-height: 150px;}
-footer{text-align: center;font-family: "Fresca" sans-serif;}
-h3{text-align: center;color: #FF88BB;}
-p{text-align: justify;font-family: "Fresca" sans-serif}
+footer{text-align: center;font-family: "Trebuchet MS", Tahoma, Arial, Helvetica, sans-serif;}
+h3{text-align: center;color: #9900CC;}
+p{text-align: justify;font-family: "Trebuchet MS", Tahoma, Arial, Helvetica, sans-serif;}
 nav ul{padding: 0px;margin: 0px;}
 nav ul li{display: inline;}
-nav ul li a{/*Posicionamento dos itens do menu*/padding: 2px 10px;display: inline-block;/*Estilo dos itens*/font-family: "Fresca" sans-serif;color: #FF88BB;text-align: right;}
+nav ul li a{/*Posicionamento dos itens do menu*/padding: 2px 10px;display: inline-block;/*Estilo dos itens*/font-family: "Trebuchet MS", Tahoma, Arial, Helvetica, sans-serif;color: #9900CC;text-align: right;}
 aside section nav ul li a img{padding: 5px;}
 
 /*Posicionamento do site e de seus elementos*/
