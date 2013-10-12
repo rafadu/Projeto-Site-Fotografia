@@ -54,7 +54,7 @@
 						<div id="right">
 							<div>
 								<label for="tipoPostagem">Tipo de Postagem</label><br/><br/>
-								<input type="radio" name="tipoPostagem" value="1"/> Postagem Rápida<br/>
+								<input type="radio" name="tipoPostagem" value="1" checked="true"/> Postagem Rápida<br/>
 								<input type="radio" name="tipoPostagem" value="2"/> Artigo<br/>
 								<input type="radio" name="tipoPostagem" value="3"/> Evento<br/>
 							</div>
@@ -71,8 +71,9 @@
 								<input type="radio" name="isAtivo" value="0"/> Inativo<br/>
 							</div>
 							<div id="imagens">
-								<input type="file" accept="image/*" name="img_0" id="img_0" value="+"/>
+								<input type="file" class="img" accept="image/*" name="img_0" id="img_0"/>
 							</div>
+							<button id="add" type="button">+</button>
 							<div id="buttons">
 								<input type="button" name="btnCancel" value="Cancelar"/>
 								<input type="submit" name="btnSubmit" value="Enviar"/>
@@ -93,5 +94,6 @@
 		</div>
 		<script type="text/javascript" src="common/scripts/jquery-2.0.2.min.js"></script>
 		<script type="text/javascript" src="common/scripts/core.js"></script>
+		<script type="text/javascript" src="common/scripts/cadastroPost.js"></script>
 	</body>
 </html>
