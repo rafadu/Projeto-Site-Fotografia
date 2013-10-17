@@ -18,7 +18,7 @@ CREATE TABLE IF NOT EXISTS fotografia.Postagem (
 	texto VARCHAR(20000) NOT NULL,
 	dataCriacao DATETIME,
 	isAtivo BOOLEAN,
-	idTipoPostagem INT NOT NULL,
+	idTipoPostagem INT,
 	CONSTRAINT FK_TipoPostagem_Postagem 
 		FOREIGN KEY FK_TipoPostagem_Postagem (idTipoPostagem)
 		REFERENCES fotografia.TipoPostagem (id)
@@ -42,17 +42,8 @@ CREATE TABLE IF NOT EXISTS fotografia.Imagem(
 CREATE TABLE IF NOT EXISTS fotografia.Tag(
 	id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
 	tag VARCHAR(50) NOT NULL,
-	idPostagem INT NOT NULL,
+	idPostagem INT,
 	CONSTRAINT FK_Postagem_Tag
 		FOREIGN KEY FK_Postagem_Tag (idPostagem)
 		REFERENCES fotografia.Postagem(id)
-) CHARACTER SET utf8 COLLATE utf8_general_ci;
-
-CREATE  TABLE IF NOT EXISTS fotografia.comentario (
-  idcomentario INT(11) NOT NULL AUTO_INCREMENT PRIMARY KEY ,
-  comentario VARCHAR(300) NOT NULL ,
-  idPostagem INT(11) NOT NULL ,
-  CONSTRAINT FK_Postagem_Comentario
-    FOREIGN KEY FK_Postagem_Comentario(idPostagem)
-    REFERENCES fotografia.postagem (id)
 ) CHARACTER SET utf8 COLLATE utf8_general_ci;

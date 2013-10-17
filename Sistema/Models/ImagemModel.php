@@ -17,10 +17,10 @@ class ImagemModel implements ICrud{
             $query="INSERT INTO imagem(imagem,link,idTipoImagem,idPostagem) VALUES ('$object->imagem','$object->link','$object->idTipoImagem',
 			$object->idPostagem)";
             //instancia conexão
-            //$mysqli = Application\Connection::Open(); Nao funcionando aqui, tentei alterar a classe para manter a logica em cima
+            //$mysqli = Application\Connection::Open(); //Nao funcionando aqui, tentei alterar a classe para manter a logica em cima
 			// dela porém não consegui@Andrew
 			
-			$mysqli = new mysqli("localhost", "root", "", "fotografia");
+			$mysqli = new mysqli("localhost", "root", "1bf16c83", "fotografia");
 			
             //executa o insert
             $mysqli->query($query);
@@ -58,7 +58,7 @@ class ImagemModel implements ICrud{
         try{
             //query de busca base
            // $query="SELECT id, imagem, link, idPostagem, idTipoImagem FROM imagem WHERE $key = ";
-            $query= "SELECT  id ,  imagem ,  link ,  idTipoImagem ,  idPostagem FROM  imagem WHERE id = " . $value;	
+            $query= "SELECT  id ,  imagem ,  link ,  idTipoImagem ,  idPostagem FROM  imagem WHERE $key = " . $value;	
             //finalização da query
             /* if ($isText)
                 $query += "'$value'";
@@ -66,10 +66,10 @@ class ImagemModel implements ICrud{
                 $query += $value;
 			*/           
             //conexão	
-            //$conn = Application\Connection::Open(); Nao funcionando aqui, tentei alterar a classe para manter a logica em cima
+            //$conn = Application\Connection::Open();// Nao funcionando aqui, tentei alterar a classe para manter a logica em cima
 			// dela porém não consegui @Andrew
 			
-			$conn = new mysqli("localhost", "root", "", "fotografia");
+			$conn = new mysqli("localhost", "root", "1bf16c83", "fotografia");
 			
             //executa o select, o resultado é guardado num mysqli_result
 			
@@ -82,7 +82,7 @@ class ImagemModel implements ICrud{
              * entao ele nao retorna nada ao array, gerando um resultado false
              * pra condição
              */		 
-			 
+			 $lista = [];
             while($row=$result->fetch_assoc()){
                 $object = new Data\Object\Imagem();
                 $object->id = $row['id'];

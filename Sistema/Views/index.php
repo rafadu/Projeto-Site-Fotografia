@@ -1,4 +1,19 @@
 <!DOCTYPE html>
+<?php 
+/**
+ * Description of Connection
+ *
+ * @author Andrew
+ *
+ * Somente para testes
+ */
+require_once("..\Controllers\PostagemController.php"); 
+ $controller = new PostagemController();  
+ $pagInicial = $controller->readPostagemIndex();
+ $post1 = $pagInicial["postagem"][0];$post2 = $pagInicial["postagem"][1];
+ $imagens_1 = $controller->showImagensIndex($pagInicial["imagens_1"]);
+ $imagens_2 = $controller->showImagensIndex($pagInicial["imagens_2"]);
+ ?>
 <html>
 	<head>
 		<meta charset="utf-8"/>
@@ -14,13 +29,13 @@
 			<nav>
 				<ul>
 					<li>
-						<a href="index.html">Home</a>
+						<a href="index.php">Home</a>
 					</li>
 					<li>
-						<a href="postagem.html?tipoPostagem=1">Artigos</a>
+						<a href="postagem.php?tipoPostagem=1">Artigos</a>
 					</li>
 					<li>
-						<a href="postagem.html?tipoPostagem=2">Eventos</a>
+						<a href="postagem.php?tipoPostagem=2">Eventos</a>
 					</li>
 					<li>
 						<a href="contato.html">Contato</a>
@@ -32,10 +47,20 @@
 			</nav>
 		</header>
 		<main id="main">
-			<!-- o mesmo que o main, só que haverá diferenças do tipo de postagem e talvez da quantidade de itens -->
+			<!--talvez caiba um mustache.render para os articles-->
 			<article id="last">
-				<h2 id="title">Título</h2>
-				<p id="text">"Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."</p>
+				<h2 id="title"><?php echo $post1->titulo; ?></h2>
+				<p id="text"><?php echo $post1->texto; ?></p>
+				<ul id="miniImagens">
+					<?php 
+						if (!is_null($imagens_1)){
+						foreach($imagens_1 as $img)
+							echo "<li>$img</li>";
+						}
+					?>
+					
+					
+				</ul>
 				<nav id="taglist">
 					<ul>
 						<li>
@@ -49,18 +74,17 @@
 				<a href="#">Leia mais..</a>
 			</article>
 			<article id="penultimate">
-				<h2>Título</h2>
-				<p>"Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."</p>
+				<h2><?php echo $post2->titulo; ?></h2>
+				<p><?php echo $post2->texto; ?></p>
 				<ul id="miniImagens">
-					<li>
-						<img src="common\images\evento2-a.jpg">
-					</li>
-					<li>
-						<img src="common\images\evento2-b.jpg">
-					</li>
-					<li>
-						<img src="common\images\evento2-d.jpg">
-					</li>
+					<?php 
+						if (!is_null($imagens_1)){
+						foreach($imagens_2 as $img)
+							echo "<li>$img</li>";
+						}
+					?>
+					
+					
 				</ul>
 				<nav id="taglist">
 					<ul>
