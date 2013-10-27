@@ -15,25 +15,20 @@
 				<nav>
 					<ul>
 						<li>
+							<a href="painel.html">Home</a>
+						</li>
+						<li>
 							<a href="cadastroPost.html?acao=1">Nova postagem</a>
 						</li>
-
 						<li>
 							<a href="cadastroPost.html?acao=2">Editar Postagem</a>
 						</li>
-
 						<li>
 							<a href="#">Postagens Inativas</a>
 						</li>
-
-						<li>
-							<a href="#">Rascunhos</a>
-						</li>
-
 						<li>
 							<a href="#">Comentários</a>
 						</li>
-
 						<li>
 							<a href="#">Feeds</a>
 						</li>
@@ -42,7 +37,7 @@
 			</header>
 			<main id="main">
 				
-					<form action="" method="POST" enctype="multipart/form-data">
+					<form action="../Application/Dispatch.php" method="POST" enctype="multipart/form-data">
 						<div id="top">
 							<label for="txtTitulo">Título</label> <br/>
 							<input type="text" name="txtTitulo" id="txtTitulo"/>
@@ -79,6 +74,8 @@
 								<input type="submit" name="btnSubmit" value="Enviar"/>
 							</div>
 						</div>
+						<input type="hidden" name="controller" value="Postagem">
+						<input type="hidden" name="method" value="createPostagem">
 					</form>
 				
 			</main>

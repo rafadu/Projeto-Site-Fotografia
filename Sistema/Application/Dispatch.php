@@ -6,12 +6,12 @@
  */
 
 //Fazendo o require do arquivo que contem a classe
-$controller_file = "Controllers/".$_REQUEST['controller']."Controller.php";
+$controller_file = "../Controllers/".$_REQUEST['controller']."Controller.php";
 if(file_exists($controller_file))
     require_once $controller_file;
 
 //instanciando a classe
-$name_class = $_REQUEST['controller'];
+$name_class = $_REQUEST['controller']."Controller";
 if (class_exists($name_class))
     $o = new $name_class;
 

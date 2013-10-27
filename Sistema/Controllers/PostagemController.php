@@ -11,25 +11,25 @@ require_once("..\Data Objects\Postagem.php");
 //utiliza a namespace de Imagem
 use Data\Object\Postagem;
 class PostagemController {
-	public function createPostagem($param,$img){
+	public function createPostagem(){
 		
 		$criarPostagem = new Postagem();
 	
-		$criarPostagem->titulo = $param['titulo'];
-		$criarPostagem->texto = $param['texto'];
+		$criarPostagem->titulo = $_REQUEST['txtTitulo'];
+		$criarPostagem->texto = $_REQUEST['txtDescricao'];
 		//atribui a data e hora atuais do servidor para o atributo do objeto
 		$tz_object = new DateTimeZone('America/Sao_Paulo');
 		$datetime = new DateTime();
 		$datetime->setTimezone($tz_object);     
 		$criarPostagem->dataCriacao =  $datetime->format('Y\-m\-d\ H:i:s');
 		
-		$criarPostagem->isAtivo = $param['isAtivo'];
-		$criarPostagem->tipoPostagem = $param['tipoPostagem'];
+		$criarPostagem->isAtivo = true;
+		$criarPostagem->tipoPostagem = intval($_REQUEST['tipoPostagem']);
 		
 		$objPostagem = new PostagemModel();
 		$idImagem = $objPostagem->create($criarPostagem);
-		
-		$imagem = new ImagemController();
+                
+		/*$imagem = new ImagemController();
 		$param['idPostagem'] = $idImagem;
 		
 		$imgFlag = 0;
@@ -39,8 +39,8 @@ class PostagemController {
 		}
 		else
 		$imgFlag = 1;
-		}
-		
+		}*/
+             header("Location: ../Views/painel.html");
 	}
 	public function readPostagemId($idPostagem){
 		$postagemModel = new PostagemModel();	

@@ -82,7 +82,7 @@ class ImagemModel implements ICrud{
              * entao ele nao retorna nada ao array, gerando um resultado false
              * pra condição
              */		 
-			 $lista = [];
+			 $lista = array();
             while($row=$result->fetch_assoc()){
                 $object = new Data\Object\Imagem();
                 $object->id = $row['id'];

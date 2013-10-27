@@ -17,7 +17,7 @@ class PostagemModel implements Application\ICrud{
              $query="INSERT INTO postagem(titulo,texto,dataCriacao,isAtivo,idTipoPostagem) VALUES ('$object->titulo','$object->texto','$object->dataCriacao',$object->isAtivo,$object->tipoPostagem)";
              //instancia conexao
              //$mysqli = Application\Connection::Open();
-			 $mysqli = new mysqli("localhost", "root", "", "fotografia");
+			 $mysqli = new mysqli("localhost", "rafadu", "rafael916152", "fotografia");
              //executa o insert
              $mysqli->query($query);
              //fecha o mysqli
@@ -102,7 +102,7 @@ class PostagemModel implements Application\ICrud{
               * então ele não retorna nada ao array, gerando um resultado false
               * pra condição
               */
-			  $lista=[];
+			  $lista=array();
               while($row=$result->fetch_assoc()){
                  $object = new Data\Object\Postagem();
                  $object->id = $row['id'];
