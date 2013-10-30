@@ -7,12 +7,14 @@
  *
  * Somente para testes
  */
-require_once("..\Controllers\PostagemController.php"); 
+require_once("\..\..\Controllers\PostagemController.php"); 
  $controller = new PostagemController();  
  $pagInicial = $controller->readPostagemIndex();
  $post1 = $pagInicial["postagem"][0];$post2 = $pagInicial["postagem"][1];
  $imagens_1 = $controller->showImagensIndex($pagInicial["imagens_1"]);
  $imagens_2 = $controller->showImagensIndex($pagInicial["imagens_2"]);
+ $tag_1 = $pagInicial["tags_1"];
+ $tag_2 = $pagInicial["tags_2"];
  ?>
 <html>
 	<head>
@@ -41,7 +43,7 @@ require_once("..\Controllers\PostagemController.php");
 						<a href="contato.html">Contato</a>
 					</li>
 					<li>
-						<a href="busca.html">Arquivo</a>
+						<a href="busca.php">Arquivo</a>
 					</li>
 				</ul>
 			</nav>
@@ -63,12 +65,15 @@ require_once("..\Controllers\PostagemController.php");
 				</ul>
 				<nav id="taglist">
 					<ul>
-						<li>
-							<a href="#">Tag1</a>
-						</li>
-						<li>
-							<a href="#">Tag2</a>
-						</li>
+						<?php 
+						if (!is_null($tag_1)){
+						foreach($tag_1 as $tag){
+							echo "<li>
+							<a href='#'>$tag->tag</a>
+							</li>";
+							}
+						}
+					?>
 					</ul>
 				</nav>
 				<a href="#">Leia mais..</a>
@@ -88,12 +93,13 @@ require_once("..\Controllers\PostagemController.php");
 				</ul>
 				<nav id="taglist">
 					<ul>
-						<li>
-							<a href="#">Tag1</a>
-						</li>
-						<li>
-							<a href="#">Tag2</a>
-						</li>
+						<?php 
+						if (!is_null($tag_2)){
+						foreach($tag_2 as $tag){
+							echo "<li>
+							<a href='#'>$tag->tag</a>
+							</li>";}
+						}?>
 					</ul>
 				</nav>
 				<a href="#">Leia mais..</a>

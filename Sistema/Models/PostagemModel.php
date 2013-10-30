@@ -4,9 +4,9 @@
 *
 * @author Lucas
 */
-require_once("..\Application\Connection.php");
-require_once("..\Data Objects\Imagem.php");
-require_once("..\Application\ICrud.php");
+require_once("..\..\Application\Connection.php");
+require_once("..\..\Data Objects\Imagem.php");
+require_once("..\..\Application\ICrud.php");
 use Application\Connection;
 use Data\Object\Postagem;
 use Application\ICrud;
@@ -59,7 +59,7 @@ class PostagemModel implements Application\ICrud{
      public function read($key, $value, $operacao) {
          try{
              //query de busca base
-			 
+			 $query="";
 			 switch ($operacao){
 				//Selecionar Postagens mesmo ocultas
 				case 0:
@@ -76,6 +76,10 @@ class PostagemModel implements Application\ICrud{
 				//Selecionar ultimas quatros postagens ativas
 				case 3:
 					$query="SELECT id, titulo, texto, dataCriacao, isAtivo, idTipoPostagem FROM postagem WHERE isAtivo = 1 AND  $key = ".$value ." ORDER BY id DESC LIMIT 4";
+				break;				
+				//Efetuar busca
+				case 4:
+					$query="SELECT id, titulo, texto, dataCriacao, isAtivo, idTipoPostagem FROM postagem WHERE  isAtivo = 1 AND ($key LIKE '%$value%') ORDER BY dataCriacao DESC";
 				break;
 			 
 			 }

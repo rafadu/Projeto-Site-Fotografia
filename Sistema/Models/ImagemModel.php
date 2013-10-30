@@ -1,7 +1,7 @@
 <?php 
-require_once("..\Application\Connection.php");
-require_once("..\Data Objects\Imagem.php");
-require_once("..\Application\ICrud.php");
+require_once("..\..\Application\Connection.php");
+require_once("..\..\Data Objects\Imagem.php");
+require_once("..\..\Application\ICrud.php");
 /**
  * Description of ImagemModel
  *

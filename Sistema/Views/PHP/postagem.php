@@ -7,7 +7,7 @@
  *
  * Somente para testes
  */
-require_once("..\Controllers\PostagemController.php"); 
+require_once("..\..\Controllers\PostagemController.php"); 
  $controller = new PostagemController();  
  $pagina = $controller->readPostagemTipo($_GET["tipoPostagem"]);
  $post1 = $pagina["postagem"][0];$post2 = $pagina["postagem"][1]; $post3 = $pagina["postagem"][2];$post4 = $pagina["postagem"][3];
@@ -15,6 +15,11 @@ require_once("..\Controllers\PostagemController.php");
  $imagens_2 = $controller->showImagensIndex($pagina["imagens_2"]);
  $imagens_3 = $controller->showImagensIndex($pagina["imagens_3"]);
  $imagens_4 = $controller->showImagensIndex($pagina["imagens_4"]);
+ $tag_1 = $pagina["tags_1"];
+ $tag_2 = $pagina["tags_2"];
+ $tag_3 = $pagina["tags_3"];
+ $tag_4 = $pagina["tags_4"];
+ 
  ?>
 <html>
 	<head>
@@ -43,7 +48,7 @@ require_once("..\Controllers\PostagemController.php");
 						<a href="contato.html">Contato</a>
 					</li>
 					<li>
-						<a href="busca.html">Arquivo</a>
+						<a href="busca.php">Arquivo</a>
 					</li>
 				</ul>
 			</nav>
@@ -56,20 +61,22 @@ require_once("..\Controllers\PostagemController.php");
 				<ul id="miniImagens">
 					<?php 
 						if (!is_null($imagens_1)){
-						foreach($imagens_1 as $img)
+						foreach($imagens_1 as $img){
 							echo "<li>$img</li>";
+							}
 						}
 					?>					
 				</ul>
 					<nav id="taglist">
-					<ul>
-						<li>
-							<a href="#">Tag1</a>
-						</li>
-						<li>
-							<a href="#">Tag2</a>
-						</li>
-					</ul>
+						<?php 
+						if (!is_null($tag_1)){
+						foreach($tag_1 as $tag){
+							echo "<li>
+							<a href='busca.php?buscar=$tag->tag'>$tag->tag</a>
+							</li>";
+							}
+						}
+					?>
 				</nav>
 				<a href="#">Leia mais..</a>
 			</article>
@@ -79,18 +86,25 @@ require_once("..\Controllers\PostagemController.php");
 				<ul id="miniImagens">
 					<?php 
 						if (!is_null($imagens_2)){
+						try{
 						foreach($imagens_2 as $img)
-							echo "<li>$img</li>";
+							echo "<li>$img</li>";}
+							catch (Exception $e){
+							echo "sem imagens";
+							}
 						}
 					?>	
 				<nav id="taglist">
 					<ul>
-						<li>
-							<a href="#">Tag1</a>
-						</li>
-						<li>
-							<a href="#">Tag2</a>
-						</li>
+						<?php 
+						if (!is_null($tag_2)){
+						foreach($tag_2 as $tag){
+							echo "<li>
+							<a href='#'>$tag->tag</a>
+							</li>";
+							}
+						}
+					?>
 					</ul>
 				</nav>
 				<a href="#">Leia mais..</a>
@@ -107,12 +121,15 @@ require_once("..\Controllers\PostagemController.php");
 					?>	
 				<nav id="taglist">
 					<ul>
-						<li>
-							<a href="#">Tag1</a>
-						</li>
-						<li>
-							<a href="#">Tag2</a>
-						</li>
+						<?php 
+						if (!is_null($tag_3)){
+						foreach($tag_3 as $tag){
+							echo "<li>
+							<a href='#'>$tag->tag</a>
+							</li>";
+							}
+						}
+					?>
 					</ul>
 				</nav>
 				<a href="#">Leia mais..</a>
@@ -123,19 +140,22 @@ require_once("..\Controllers\PostagemController.php");
 				<ul id="miniImagens">
 					<?php 
 						if (!is_null($imagens_4)){
-						foreach($imagens_4 as $img)
+						foreach($imagens_4 as $img){
 							echo "<li>$img</li>";
+							}
 						}
 					?>	
 				<nav id="taglist">
 					<ul>
-						<li>
-							<a href="#">Tag1</a>
-						</li>
-						<li>
-							<a href="#">Tag2</a>
-						</li>
-					</ul>
+						<?php 
+						if (!is_null($tag_4)){
+						foreach($tag_4 as $tag){
+							echo "<li>
+							<a href='#'>$tag->tag</a>
+							</li>";
+							}
+						}
+					?>
 				</nav>
 				<a href="#">Leia mais..</a>
 			</article>

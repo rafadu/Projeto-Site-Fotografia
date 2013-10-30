@@ -1,42 +1,51 @@
 <?php
+require_once("..\..\Application\Connection.php");
+require_once("..\..\Data Objects\Tag.php");
+require_once("..\..\Application\ICrud.php");
 /**
  * Description of TagModel
  *
  * @author Rafael
  */
-class TagModel implements Application\ICrud{
-    public function create(Data\Object\Tag $object) {
-        try{            
-            //query de insert 
+use Application\Connection;
+use Data\Object\Imagem;
+use Application\ICrud;
+class TagModel implements ICrud{
+    public function create($object) {
+        try{
+            //query de insert
             $query="INSERT INTO tag(tag,idPostagem) VALUES ('$object->tag',$object->idPostagem)";
-            //instancia conexÃ£o
-            $mysqli = Application\Connection::Open();
+            //instancia conexão
+            //--$mysqli = Application\Connection::Open();
             //executa o insert
+            
+            $mysqli = new mysqli("localhost", "root", "", "fotografia");
+            
             $mysqli->query($query);
             //fecha o mysqli
             $mysqli->close();
-            return $mysqli->affected_rows > 0;
+            //return $mysqli->affected_rows > 0;
         }
         catch(Exception $ex){
-            throw new Exception("Erro ao executar operaÃ§Ã£o no banco. Mensagem: ".$ex->getMessage());
+            throw new Exception("Erro ao executar operação no banco. Mensagem: ".$ex->getMessage());
         }
     }
 
     public function delete($key, $value,$isText) {
         try{
-            //variavel para criaÃ§Ã£o da query
-            $query="DELETE FROM tag WHERE $key = ";            
+            //variavel para criação da query
+            $query="DELETE FROM tag WHERE $key = ";
             //se o tipo de dado de value for texto, este valor precisa na query
-            //estar entre aspas, do contrÃ¡rio a operaÃ§Ã£o nÃ£o serÃ¡ realizada
+            //estar entre aspas, do contrário a operação não será realizada
             if ($isText)
                 $query += "'$value'";
             else
                 $query += $value;
             //instanciar interface com banco
             $mysqli = Application\Connection::Open();
-            //executar operaÃ§Ã£o
+            //executar operação
             $mysqli->query($query);
-            //fecha conexÃ£o
+            //fecha conexão
             $mysqli->close();
             return $mysqli->affected_rows > 0;
         }
@@ -45,38 +54,42 @@ class TagModel implements Application\ICrud{
         }
     }
 
-    public function read($key, $value,$isText) {
+    public function read($key, $value, $isText) {
         try{
             //query de busca base
-            $query="SELECT id, tag, idPostagem FROM tag WHERE $key = ";
-            
-            //finalizaÃ§Ã£o da query
-            if ($isText)
+            $query="SELECT id, tag, idPostagem FROM tag WHERE $key = ".$value;
+
+            //finalização da query
+            /*if ($isText)
                 $query += "'$value'";
             else
-                $query += $value;
+                $query += $value;*/
+
+            //conexão
+            //--$conn = Application\Connection::Open();
             
-            //conexÃ£o
-            $conn = Application\Connection::Open();
-            //executa o select, o resultado Ã© guardado num mysqli_result
+            $conn = new mysqli("localhost", "root", "", "fotografia");
+            
+            //executa o select, o resultado é guardado num mysqli_result
             $result = $conn->query($query);
-            //laÃ§o para criar o array de Data Objects
+            //laço para criar o array de Data Objects
             /*
-             * fetch_assoc() pega os valores da posiÃ§Ã£o atual na tabela e guarda
-             * no array $row, depois da ultima posiÃ§Ã£o nÃ£o tem nenhum valor,
+             * fetch_assoc() pega os valores da posição atual na tabela e guarda
+             * no array $row, depois da ultima posição não tem nenhum valor,
              * entao ele nao retorna nada ao array, gerando um resultado false
-             * pra condiÃ§Ã£o
+             * pra condição
              */
+            $lista=[];
             while($row=$result->fetch_assoc()){
                 $object = new Data\Object\Tag();
                 $object->id = $row['id'];
                 $object->tag = $row['tag'];
                 $object->idPostagem = $row['idPostagem'];
-                //escrever a atribuiÃ§Ã£o abaixo faz com que o php entenda que
-                //estÃ¡ adicionando um novo item no array
+                //escrever a atribuição abaixo faz com que o php entenda que
+                //está adicionando um novo item no array
                 $lista[] = $object;
             }
-            //fechando result e conexÃ£o
+            //fechando result e conexão
             $result->close();
             $conn->close();
             //retornando array
@@ -87,17 +100,17 @@ class TagModel implements Application\ICrud{
         }
     }
 
-    public function update(Data\Object\Tag $object) {
+    public function update($object) {
         try{
             //query de update base
             $query="UPDATE tag SET ";
-            //se os valores de $object nao forem nulos ou vazios, adicionÃ¡-los na condiÃ§Ã£o
+            //se os valores de $object nao forem nulos ou vazios, adicioná-los na condição
             if (!(is_null($object->tag) || empty($object->tag)))
                 $query += "tag = '$object->tag'";
             if (!(is_null($object->idPostagem) || empty($object->idPostagem)))
                 $query += "idPostagem = $object->idPostagem";
             //id da tag deve vir obrigatoriamente para atualizar a tag,
-            //ou nÃ£o hÃ¡ update
+            //ou não há update
             $query += "WHERE id = $object->id";
             //instanciar
             $conn = Application\Connection::Open();
@@ -108,7 +121,7 @@ class TagModel implements Application\ICrud{
             return $conn->affected_rows > 0;
         }
         catch(Exception $ex){
-            throw new Exception("Erro durante atualizaÃ§Ã£o. Mensagem: ".$ex->getMessage());
+            throw new Exception("Erro durante atualização. Mensagem: ".$ex->getMessage());
         }
     }
 }

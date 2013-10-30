@@ -1,5 +1,5 @@
 <?php
-require_once("..\Controllers\ImagemController.php");
+require_once("..\..\Controllers\ImagemController.php");
 header("Content-type:image/*");
 $controller = new ImagemController();
 

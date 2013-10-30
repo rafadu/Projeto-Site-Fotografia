@@ -1,4 +1,21 @@
 <!DOCTYPE html>
+<?php 
+/**
+ * Description of Connection
+ *
+ * @author Andrew
+ *
+ * Somente para testes
+ */
+require_once("\..\..\Controllers\PostagemController.php"); 
+ $controller = new PostagemController();
+ if (isset($_GET["buscar"])){
+ $pagBusca = $controller->buscar($_GET["buscar"]);
+ }
+ /*else if($_SERVER['REQUEST_METHOD'] == 'POST'){
+ $pagBusca = $controller->buscar($_POST["txtBusca"]);
+ }*/
+ ?>
 <html>
 	<head>
 		<meta charset="utf-8"/>
@@ -14,25 +31,25 @@
 			<nav>
 				<ul>
 					<li>
-						<a href="index.html">Home</a>
+						<a href="index.php">Home</a>
 					</li>
 					<li>
-						<a href="postagem.html?tipoPostagem=1">Artigos</a>
+						<a href="postagem.php?tipoPostagem=1">Artigos</a>
 					</li>
 					<li>
-						<a href="postagem.html?tipoPostagem=2">Eventos</a>
+						<a href="postagem.php?tipoPostagem=2">Eventos</a>
 					</li>
 					<li>
 						<a href="contato.html">Contato</a>
 					</li>
 					<li>
-						<a href="busca.html">Arquivo</a>
+						<a href="busca.php">Arquivo</a>
 					</li>
 				</ul>
 				<div>
-					<form method="post" id="busca" action="#">
-						<input type="text" id="txtBusca" name="txtBusca" value="Pesquise postagens..."/>
-						<input type="submit" id="btnBusca" name="btnBusca" value=""/>
+					<form method="get" id="busca" action="#">
+						<input type="text" id="txtBusca" name="buscar" value="Pesquise postagens..."/>
+						<input type="submit" id="btnBusca" name="ok" value=""/>
 					</form>
 				</div
 			</nav>
@@ -42,6 +59,13 @@
 				<article>
 					<h2>Arquivos do site</h2>
 					<ul id="resultado">
+					<?php
+						 if ($_SERVER['REQUEST_METHOD'] == 'POST' or isset($_GET["buscar"])){
+						foreach ($pagBusca as $post){
+							echo "<li><a href=#>$post->titulo</a></li>";
+						}
+						}
+					?>
 					</ul>
 				</article>
 			</section>

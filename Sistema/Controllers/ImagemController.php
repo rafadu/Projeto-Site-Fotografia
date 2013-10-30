@@ -5,8 +5,8 @@
  * @author Andrew
  */
 //solicita o modelo a ser controlado e a entrada ao banco de dados
-require_once("..\Models\ImagemModel.php");
-require_once("..\Data Objects\Imagem.php");
+require_once("..\..\Models\ImagemModel.php");
+require_once("..\..\Data Objects\Imagem.php");
 //utiliza a namespace de Imagem
 use Data\Object\Imagem;
 class ImagemController{
