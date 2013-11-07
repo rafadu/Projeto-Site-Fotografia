@@ -100,7 +100,7 @@ require_once("..\..\Controllers\PostagemController.php");
 						if (!is_null($tag_2)){
 						foreach($tag_2 as $tag){
 							echo "<li>
-							<a href='#'>$tag->tag</a>
+							<a href='busca.php?buscar=$tag->tag'>$tag->tag</a>
 							</li>";
 							}
 						}
@@ -125,7 +125,7 @@ require_once("..\..\Controllers\PostagemController.php");
 						if (!is_null($tag_3)){
 						foreach($tag_3 as $tag){
 							echo "<li>
-							<a href='#'>$tag->tag</a>
+							<a href='busca.php?buscar=$tag->tag'>$tag->tag</a>
 							</li>";
 							}
 						}
@@ -151,7 +151,7 @@ require_once("..\..\Controllers\PostagemController.php");
 						if (!is_null($tag_4)){
 						foreach($tag_4 as $tag){
 							echo "<li>
-							<a href='#'>$tag->tag</a>
+							<a href='busca.php?buscar=$tag->tag'>$tag->tag</a>
 							</li>";
 							}
 						}

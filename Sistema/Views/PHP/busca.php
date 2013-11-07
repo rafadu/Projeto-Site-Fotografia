@@ -60,7 +60,17 @@ require_once("\..\..\Controllers\PostagemController.php");
 					<h2>Arquivos do site</h2>
 					<ul id="resultado">
 					<?php
-						 if ($_SERVER['REQUEST_METHOD'] == 'POST' or isset($_GET["buscar"])){
+						 /*if ($_SERVER['REQUEST_METHOD'] == 'POST' or isset($_GET["buscar"])){
+						foreach ($pagBusca as $post){
+							echo "<li><a href=#>$post->titulo</a></li>";
+						}
+						foreach ($pagBusca["porTags"] as $post){
+							echo "<li><a href=#> $post->titulo </a></li>";
+						}
+						}*/
+						
+						if ($_SERVER['REQUEST_METHOD'] == 'POST' or isset($_GET["buscar"])){
+						//print_r($pagBusca);
 						foreach ($pagBusca as $post){
 							echo "<li><a href=#>$post->titulo</a></li>";
 						}

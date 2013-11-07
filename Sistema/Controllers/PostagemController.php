@@ -41,8 +41,190 @@ class PostagemController {
 		else
 		$imgFlag = 1;
 		}*/
-             header("Location: ../Views/painel.html");
+		
+		/*$tag = new TagController();
+		$tagFlag=0;
+		for ($count=1;$tagFlag<1;$count++){
+		if (!empty($param['tag_'.$count])){
+		$param['tag'] = $param['tag_'.$count];
+		$tag->createTag($param);
+		}
+		else{
+		$tagFlag=1;
+		}
+		}*/
+		
+		$titulo = $criarPostagem->titulo;
+		$this->criarArquivoPostagem($idImagem, $titulo);
+		
+             header("Location: ../../Views/painel.html");
 	}
+	
+	public function criarArquivoPostagem($id,$titulo){
+		$filename = "$titulo-$id.php";
+		if(file_exists($filename)){
+		$content = file_get_contents($filename);
+		} 
+		else {
+		$content = "";
+		}
+		$content = '<?php require_once("..\..\Controllers\PostagemController.php"); 
+			$controller = new PostagemController();
+			$meuId = '.$id.' ;
+			$controller->conteudoPaginas($meuId);
+			?>';
+		$file = @fopen($filename, "w+");
+		@fwrite($file, $content);
+		@fclose($file);
+		
+	}
+	
+			public function MostraImagens($imgs){
+			$result='';
+				if (!is_null($imgs)){
+						foreach($imgs as $img){
+							$result.= "<li>$img</li>";}
+						}
+						return $result;
+		}
+				public function MostraTags($tag){
+				$result='';
+						if (!is_null($tag)){
+						foreach($tag as $tag){
+							$result .= "<li>
+							<a href='busca.php?buscar=$tag->tag'>$tag->tag</a>
+							</li>";
+							}
+						}
+						return $result;
+		}
+	
+	
+	
+	public function conteudoPaginas($id){
+$tagController = new TagController();
+$imagemController = new ImagemController();
+
+$post = $this->readPostagemId($id);
+
+$param = array("id"=>$id , "operacao"=>0);
+$imagens = $imagemController->readImagem($param);
+$imagens = $this->showImagensIndex($imagens);
+$tags = $tagController->readTag($param);
+echo '<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8"/>
+		<title>Fran Letzel Fotografia</title>
+		<link rel="stylesheet" type="text/css" href="common/styles/reset.css">
+		<link rel="stylesheet" type="text/css" href="common/styles/site.css">
+		<link rel="stylesheet" type="text/css" href="common/styles/post.css">
+	</head>
+	<body>
+	<div id="geral">
+		<header>
+			<h1>Fraan Letzel Fotografia</h1>
+			<!-- Imagem no topo -->
+			<nav>
+				<ul>
+					<li>
+						<a href="index.php">Home</a>
+					</li>
+					<li>
+						<a href="postagem.php?tipoPostagem=1">Artigos</a>
+					</li>
+					<li>
+						<a href="postagem.php?tipoPostagem=2">Eventos</a>
+					</li>
+					<li>
+						<a href="contato.html">Contato</a>
+					</li>
+					<li>
+						<a href="busca.php">Arquivo</a>
+					</li>
+				</ul>
+			</nav>
+		</header>
+		<main id="main">
+			<!--talvez caiba um mustache.render para os articles-->
+			<article id="penultimate">
+				<h2>'.$post['titulo'].'</h2>
+				<p>'.$post['texto'].'</p>
+				<ul id="imagens">
+				'.$this->MostraImagens($imagens)
+					.'
+				</ul>
+				<nav id="taglist">
+					<ul>
+						'. $this->MostraTags($tags)  .'
+					</ul>
+				</nav>
+			</article>
+		</main>
+		<aside>
+			<!-- para as sections um mustache.render tambem pode ser legal-->
+			<section id="feeds">
+				<h3>Titulo Section 1</h3>
+				<nav>
+					<ul>
+						<li>
+							<br><a href="http://www.facebook.com/fraanletzel"><img src="common\images\facebook.jpg"></a>
+						</li>				
+						<li>
+							<br><a href="https://twitter.com/fraanletzel"><img src="common\images\twitter.jpg"></a>
+						</li>
+						<li>
+							<br><a href="http://www.flickr.com/photos/fraanletzel/"><img src="common\images\flickr.jpg"></a>
+						</li>
+						<li>
+							<br><a href="http://fraanletzel.tumblr.com/"><img src="common\images\tumblr.jpg"></a>
+						</li>	
+					</ul>
+				</nav>
+			</section>
+			<section id="parceiros">
+				<h3>Visite também</h3>
+					<nav>
+						<ul>
+							<li>
+								<br><a href="http://www.facebook.com/OficialOtagames"><img src="common\images\otagames.jpg"></a>
+							</li>
+							<li>
+								<br><a href="http://www.facebook.com/bandaryujinsantos"><img src="common\images\ryujin.jpg"></a>
+							</li>
+							<li>
+							<br><a href="http://www.facebook.com/SoGalhofas"><img src="common\images\sogalhofas.jpg"></a>
+							</li>
+						</ul>
+					</nav>
+			</section>
+		</aside>
+		<footer>
+			&copy; Exodia Corporation
+				| Fraan letzel Fotografia
+					<time pubdate="pubdate">2013-25-06</time>
+						
+			<div id="login">
+				<a href="login.html">Login</a>
+			</div>
+		</footer>
+	</div>
+		<script type="text/javascript" src="common/scripts/jquery-2.0.2.min.js"></script>
+		<script type="text/javascript" src="common/scripts/core.js"></script>
+	</body>
+</html>';
+
+
+
+}
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	
 	public function readPostagemId($idPostagem){
@@ -124,18 +306,68 @@ class PostagemController {
 	}
 	public function buscar ($param){
 		$postagemModel = new PostagemModel();
-		$tag = new TagController();
+		$tagController = new TagController();
+		$tagsPostagens=[];
 		//$imagemController = new ImagemController();
-		
+		$tags = $tagController->readTagNome($param);
 		$postagens = $postagemModel->read("titulo",$param,4);
+		foreach($tags as $tag){
+			$tagsPostagens[] = $postagemModel->read("id",$tag->idPostagem,1);
+		}
+
 		
 		
+		$postagensTags=[];
+		foreach($tagsPostagens as $postTags){
+				$postagensTags[]=$postTags[0];
+			foreach($postTags as $postTags2){
+			$same = false;
+				foreach ($postagensTags as $postTags3){
+				if ($postTags2 == $postTags3){
+					$same=true;
+					break;
+				}
+				}
+			if ($same=false){
+				$postagensTags[]= $postTags2;
+			}
+			}
+		}
+		
+		
+		
+		/*for ($c = 0;$c < count($tagsPostagens);$c++){
+			for ($c2;$c2<count($tagsPostagens[$c]);$c2++){
+				
+			}
+		}*/
+		
+		$result = array_merge($postagens,$postagensTags);
+		//$postFinal[]=$result[0];
+		for($c=0;$c<count($result);$c++){
+
+			$same = false;
+			for($c2=$c+1;$c2<count($result);$c2++){
+				if ($result[$c]->id==$result[$c2]->id){
+					$same=true;
+					break;
+				}
+			}
+			if ($same==false){
+			$postFinal[]=$result[$c];
+			}
+		}
+		
+		//$result = array("porTitulo"=>$postagens, "porTags"=>$postagensTags);
+
 		/*$imagem[];
 		foreach($postagens as $posts){
 			$paramImagem = array("id"=>$posts->id , "operacao"=>0);
 			$imagem[] = $imagemController($paramImagem);
 		}*/
-		return $postagens;
+		//print_r($postFinal);
+		return $postFinal;
+		
 	}
 
 }

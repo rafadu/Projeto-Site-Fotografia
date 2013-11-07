@@ -81,7 +81,7 @@ class PostagemModel implements Application\ICrud{
 				case 4:
 					$query="SELECT id, titulo, texto, dataCriacao, isAtivo, idTipoPostagem FROM postagem WHERE  isAtivo = 1 AND ($key LIKE '%$value%') ORDER BY dataCriacao DESC";
 				break;
-			 
+				
 			 }
 			 
 			/* if ($operacao == 1){

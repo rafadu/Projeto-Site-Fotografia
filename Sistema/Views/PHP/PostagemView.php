@@ -6,7 +6,7 @@
  *
  * Somente para testes
  */
-require_once("..\Controllers\PostagemController.php"); 
+require_once("..\..\Controllers\PostagemController.php"); 
  $controller = new PostagemController();  ?>
 <html>
 <head>
@@ -16,8 +16,8 @@ require_once("..\Controllers\PostagemController.php");
 <body>
 <form enctype='multipart/form-data' action='PostagemView.php'
 method='POST'>
-Título<input type='text' name='titulo' size='50'><br>
-Texto<input type='text' name='texto' size='50'><br>
+Título<input type='text' name='txtTitulo' size='50'><br>
+Texto<input type='text' name='txtDescricao' size='50'><br>
 Imagem <input type='file' name='imagem_1' size='50'><br>
 Imagem <input type='file' name='imagem_2' size='50'><br>
 Imagem <input type='file' name='imagem_3' size='50'><br>
@@ -25,6 +25,8 @@ Imagem <input type='file' name='imagem_4' size='50'><br>
 Tipo Imagem<input type='text' name='idTipoImagem' size='50'><br>
 Ativo<input type='text' name='isAtivo' size='50'><br>
 Tipo de Postagem<input type='text' name='tipoPostagem' size='50'><br>
+Tag 1<input type='text' name='tag_1' size='50'><br>
+Tag 2<input type='text' name='tag_2' size='50'><br>
 <input type='submit' value='Gravar'>
 </form>
 </body>
@@ -33,6 +35,7 @@ Tipo de Postagem<input type='text' name='tipoPostagem' size='50'><br>
 <?php 
 if ($_SERVER['REQUEST_METHOD'] == 'POST'){
 $controller->createPostagem($_POST,$_FILES);
+$controller->criarArquivoPostagem(30,'Well');
 //$postagem = $controller->readPostagemId(1);
 /*
 $pagInicial = $controller->readPostagemIndex();

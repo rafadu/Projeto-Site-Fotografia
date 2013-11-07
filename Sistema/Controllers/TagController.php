@@ -27,7 +27,11 @@ class  TagController{
 
            return $objTag->read('idPostagem',$tag["id"],"");
         }
-     //}
+	     public function readTagNome($tag){
+           $objTag = new TagModel();
+
+           return $objTag->read('tag',$tag,"");
+        }
 }
 ?>
 

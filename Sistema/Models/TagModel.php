@@ -57,7 +57,7 @@ class TagModel implements ICrud{
     public function read($key, $value, $isText) {
         try{
             //query de busca base
-            $query="SELECT id, tag, idPostagem FROM tag WHERE $key = ".$value;
+            $query="SELECT id, tag, idPostagem FROM tag WHERE $key = '$value'";
 
             //finalização da query
             /*if ($isText)
