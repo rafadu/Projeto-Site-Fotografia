@@ -10,4 +10,5 @@ p{font-size: 15px;}
 label{font-size: 20px;}
 .img:nth-child(even){margin: 5px;}
 #img_1{margin-left: 1px}
-#add{width: 40px;height: 40px;}
+#add,#addTag{width: 40px;height: 40px;}
+.tag{width: 75px!important;}

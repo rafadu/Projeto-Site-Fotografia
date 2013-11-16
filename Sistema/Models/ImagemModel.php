@@ -20,7 +20,7 @@ class ImagemModel implements ICrud{
             //$mysqli = Application\Connection::Open(); //Nao funcionando aqui, tentei alterar a classe para manter a logica em cima
 			// dela porém não consegui@Andrew
 			
-			$mysqli = new mysqli("localhost", "root", "", "fotografia");
+			$mysqli = new mysqli("localhost", "rafadu", "rafael916152", "fotografia");
 			
             //executa o insert
             $mysqli->query($query);
@@ -69,7 +69,7 @@ class ImagemModel implements ICrud{
             //$conn = Application\Connection::Open();// Nao funcionando aqui, tentei alterar a classe para manter a logica em cima
 			// dela porém não consegui @Andrew
 			
-			$conn = new mysqli("localhost", "root", "", "fotografia");
+			$conn = new mysqli("localhost", "rafadu", "rafael916152", "fotografia");
 			
             //executa o select, o resultado é guardado num mysqli_result
 			

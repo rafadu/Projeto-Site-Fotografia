@@ -269,7 +269,7 @@ echo '<!DOCTYPE html>
 	
 	public function showImagensIndex($imagem){
 	$i=0;
-	$lista=[];
+	$lista=array();
 	if (!is_null($imagem)){
 	foreach($imagem as $img){
 	
@@ -289,7 +289,7 @@ echo '<!DOCTYPE html>
 	}
 	public function showImagens ($imagem){
 	$i=0;
-	$lista=[];
+	$lista=array();
 	if (!is_null($imagem)){
 	foreach($imagem as $img){
 	$lista[] = '<img src = "..\Views\ImagemView.php?id='.$img->id.'&operacao=1"/>';
@@ -308,7 +308,7 @@ echo '<!DOCTYPE html>
 	public function buscar ($param){
 		$postagemModel = new PostagemModel();
 		$tagController = new TagController();
-		$tagsPostagens=[];
+		$tagsPostagens=array();
 		//$imagemController = new ImagemController();
 		$tags = $tagController->readTagNome($param);
 		$postagens = $postagemModel->read("titulo",$param,4);
@@ -318,7 +318,7 @@ echo '<!DOCTYPE html>
 
 		
 		
-		$postagensTags=[];
+		$postagensTags=array();
 		foreach($tagsPostagens as $postTags){
 				$postagensTags[]=$postTags[0];
 			foreach($postTags as $postTags2){
@@ -344,7 +344,8 @@ echo '<!DOCTYPE html>
 		}*/
 		
 		$result = array_merge($postagens,$postagensTags);
-		$postFinal=[];
+		$postFinal=array();
+                        ;
 		for($c=0;$c<count($result);$c++){
 
 			$same = false;

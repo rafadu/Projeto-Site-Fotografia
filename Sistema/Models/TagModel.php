@@ -15,32 +15,32 @@ class TagModel implements ICrud{
         try{
             //query de insert
             $query="INSERT INTO tag(tag,idPostagem) VALUES ('$object->tag',$object->idPostagem)";
-            $mysqli = new mysqli("localhost", "root", "", "fotografia");
+            $mysqli = new mysqli("localhost", "rafadu", "rafael916152", "fotografia");
             $mysqli->query($query);
             //fecha o mysqli
             $mysqli->close();
             //return $mysqli->affected_rows > 0;
         }
         catch(Exception $ex){
-            throw new Exception("Erro ao executar operação no banco. Mensagem: ".$ex->getMessage());
+            throw new Exception("Erro ao executar operaï¿½ï¿½o no banco. Mensagem: ".$ex->getMessage());
         }
     }
 
     public function delete($key, $value,$isText) {
         try{
-            //variavel para criação da query
+            //variavel para criaï¿½ï¿½o da query
             $query="DELETE FROM tag WHERE $key = ";
             //se o tipo de dado de value for texto, este valor precisa na query
-            //estar entre aspas, do contrário a operação não será realizada
+            //estar entre aspas, do contrï¿½rio a operaï¿½ï¿½o nï¿½o serï¿½ realizada
             if ($isText)
                 $query += "'$value'";
             else
                 $query += $value;
             //instanciar interface com banco
             $mysqli = Application\Connection::Open();
-            //executar operação
+            //executar operaï¿½ï¿½o
             $mysqli->query($query);
-            //fecha conexão
+            //fecha conexï¿½o
             $mysqli->close();
             return $mysqli->affected_rows > 0;
         }
@@ -54,37 +54,37 @@ class TagModel implements ICrud{
             //query de busca base
             $query="SELECT id, tag, idPostagem FROM tag WHERE $key = '$value'";
 
-            //finalização da query
+            //finalizaï¿½ï¿½o da query
             /*if ($isText)
                 $query += "'$value'";
             else
                 $query += $value;*/
 
-            //conexão
+            //conexï¿½o
             //--$conn = Application\Connection::Open();
             
-            $conn = new mysqli("localhost", "root", "", "fotografia");
+            $conn = new mysqli("localhost", "rafadu", "rafael916152", "fotografia");
             
-            //executa o select, o resultado é guardado num mysqli_result
+            //executa o select, o resultado ï¿½ guardado num mysqli_result
             $result = $conn->query($query);
-            //laço para criar o array de Data Objects
+            //laï¿½o para criar o array de Data Objects
             /*
-             * fetch_assoc() pega os valores da posição atual na tabela e guarda
-             * no array $row, depois da ultima posição não tem nenhum valor,
+             * fetch_assoc() pega os valores da posiï¿½ï¿½o atual na tabela e guarda
+             * no array $row, depois da ultima posiï¿½ï¿½o nï¿½o tem nenhum valor,
              * entao ele nao retorna nada ao array, gerando um resultado false
-             * pra condição
+             * pra condiï¿½ï¿½o
              */
-            $lista=[];
+            $lista=array();
             while($row=$result->fetch_assoc()){
                 $object = new Data\Object\Tag();
                 $object->id = $row['id'];
                 $object->tag = $row['tag'];
                 $object->idPostagem = $row['idPostagem'];
-                //escrever a atribuição abaixo faz com que o php entenda que
-                //está adicionando um novo item no array
+                //escrever a atribuiï¿½ï¿½o abaixo faz com que o php entenda que
+                //estï¿½ adicionando um novo item no array
                 $lista[] = $object;
             }
-            //fechando result e conexão
+            //fechando result e conexï¿½o
             $result->close();
             $conn->close();
             //retornando array
@@ -99,13 +99,13 @@ class TagModel implements ICrud{
         try{
             //query de update base
             $query="UPDATE tag SET ";
-            //se os valores de $object nao forem nulos ou vazios, adicioná-los na condição
+            //se os valores de $object nao forem nulos ou vazios, adicionï¿½-los na condiï¿½ï¿½o
             if (!(is_null($object->tag) || empty($object->tag)))
                 $query += "tag = '$object->tag'";
             if (!(is_null($object->idPostagem) || empty($object->idPostagem)))
                 $query += "idPostagem = $object->idPostagem";
             //id da tag deve vir obrigatoriamente para atualizar a tag,
-            //ou não há update
+            //ou nï¿½o hï¿½ update
             $query += "WHERE id = $object->id";
             //instanciar
             $conn = Application\Connection::Open();
@@ -116,7 +116,7 @@ class TagModel implements ICrud{
             return $conn->affected_rows > 0;
         }
         catch(Exception $ex){
-            throw new Exception("Erro durante atualização. Mensagem: ".$ex->getMessage());
+            throw new Exception("Erro durante atualizaï¿½ï¿½o. Mensagem: ".$ex->getMessage());
         }
     }
 }
