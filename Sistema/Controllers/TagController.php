@@ -4,8 +4,8 @@
 *
 * @author Lucas
 */
-require_once("..\..\Models\TagModel.php");
-require_once("..\..\Data Objects\Tag.php");
+require_once("..\Models\TagModel.php");
+require_once("..\Data Objects\Tag.php");
 
 //utiliza a namespace de tag
 use Data\Object\Tag;

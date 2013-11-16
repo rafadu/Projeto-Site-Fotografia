@@ -5,17 +5,17 @@
  * @author Andrew
  */
 //solicita o modelo a ser controlado e a entrada ao banco de dados
-require_once("..\..\Models\ImagemModel.php");
-require_once("..\..\Data Objects\Imagem.php");
+require_once("..\Models\ImagemModel.php");
+require_once("..\Data Objects\Imagem.php");
 //utiliza a namespace de Imagem
 use Data\Object\Imagem;
 class ImagemController{
 	public function createImagem($param,$arq,$idImg){
 		//atribui a variáveis os dados do arquivo de imagem recebido
-		$arqImg = $arq["imagem_".$idImg]["tmp_name"];
-		$tamanhoImg = $arq["imagem_".$idImg]["size"];
-		$tipoImg = $arq["imagem_".$idImg]["type"];
-		$nomeImg = $arq["imagem_".$idImg]["name"];
+		$arqImg = $arq["img_".$idImg]["tmp_name"];
+		$tamanhoImg = $arq["img_".$idImg]["size"];
+		$tipoImg = $arq["img_".$idImg]["type"];
+		$nomeImg = $arq["img_".$idImg]["name"];
 		
 		//verifica se o arquivo foi passado
 		 if ( $arqImg != "none" )

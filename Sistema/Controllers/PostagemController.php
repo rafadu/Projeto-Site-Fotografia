@@ -5,17 +5,15 @@
  * @author Andrew
  */
 //solicita o modelo a ser controlado
-require_once("..\..\Models\PostagemModel.php");
-require_once("..\..\Controllers\ImagemController.php");
-require_once("..\..\Data Objects\Postagem.php");
-require_once("..\..\Controllers\TagController.php");
+require_once("..\Models\PostagemModel.php");
+require_once("..\Controllers\ImagemController.php");
+require_once("..\Data Objects\Postagem.php");
+require_once("..\Controllers\TagController.php");
 //utiliza a namespace de Imagem
 use Data\Object\Postagem;
 class PostagemController {
 	public function createPostagem(){
-		
 		$criarPostagem = new Postagem();
-	
 		$criarPostagem->titulo = $_REQUEST['txtTitulo'];
 		$criarPostagem->texto = $_REQUEST['txtDescricao'];
 		//atribui a data e hora atuais do servidor para o atributo do objeto
@@ -24,59 +22,54 @@ class PostagemController {
 		$datetime->setTimezone($tz_object);     
 		$criarPostagem->dataCriacao =  $datetime->format('Y\-m\-d\ H:i:s');
 		
-		$criarPostagem->isAtivo = true;
-		$criarPostagem->tipoPostagem = intval($_REQUEST['tipoPostagem']);
+		$criarPostagem->isAtivo = $_REQUEST['isAtivo'];
+		$criarPostagem->tipoPostagem = $_REQUEST['tipoPostagem'];
 		
 		$objPostagem = new PostagemModel();
 		$idImagem = $objPostagem->create($criarPostagem);
-                
-		/*$imagem = new ImagemController();
+		$imagem = new ImagemController();
 		$param['idPostagem'] = $idImagem;
-		
+		$param['idTipoImagem'] = 1;
 		$imgFlag = 0;
 		for ($idImg = 1;$imgFlag<1;$idImg++){
-		if ( !empty( $img['imagem_'.$idImg]['name'] )){
-		$imagem->createImagem($param,$img,$idImg);
+		if ( !empty( $_FILES['img_'.$idImg]['name'])){
+		$imagem->createImagem($param,($_FILES),$idImg);
 		}
 		else
+
 		$imgFlag = 1;
-		}*/
-		
-		/*$tag = new TagController();
+
+		}
+		$tag = new TagController();
 		$tagFlag=0;
 		for ($count=1;$tagFlag<1;$count++){
-		if (!empty($param['tag_'.$count])){
-		$param['tag'] = $param['tag_'.$count];
+		if (!empty($_REQUEST['tag_'.$count])){
+		$param['tag'] = $_REQUEST['tag_'.$count];
 		$tag->createTag($param);
 		}
 		else{
 		$tagFlag=1;
 		}
-		}*/
-		
-		$titulo = $criarPostagem->titulo;
-		$this->criarArquivoPostagem($idImagem, $titulo);
-		
-             header("Location: ../../Views/painel.html");
-	}
-	
-	public function criarArquivoPostagem($id,$titulo){
-		$filename = "$titulo-$id.php";
-		if(file_exists($filename)){
-		$content = file_get_contents($filename);
-		} 
-		else {
-		$content = "";
 		}
-		$content = '<?php require_once("..\..\Controllers\PostagemController.php"); 
+
+		$titulo = $criarPostagem->titulo;
+		
+		$this->criarArquivo($idImagem, $titulo);
+             header("Location: ../Views/painel.html");
+	}
+	public function criarArquivo($id,$titulo){
+		$filename = "$titulo-$id.php";
+		$content = '<?php require_once("..\Controllers\PostagemController.php"); 
 			$controller = new PostagemController();
 			$meuId = '.$id.' ;
 			$controller->conteudoPaginas($meuId);
-			?>';
-		$file = @fopen($filename, "w+");
+			';
+		$file = @fopen("../Views/$filename", "w+");
 		@fwrite($file, $content);
 		@fclose($file);
 		
+		
+		return true;
 	}
 	
 			public function MostraImagens($imgs){
@@ -109,7 +102,7 @@ $post = $this->readPostagemId($id);
 
 $param = array("id"=>$id , "operacao"=>0);
 $imagens = $imagemController->readImagem($param);
-$imagens = $this->showImagensIndex($imagens);
+$imagens = $this->showImagens($imagens);
 $tags = $tagController->readTag($param);
 echo '<!DOCTYPE html>
 <html>
@@ -164,7 +157,7 @@ echo '<!DOCTYPE html>
 		<aside>
 			<!-- para as sections um mustache.render tambem pode ser legal-->
 			<section id="feeds">
-				<h3>Titulo Section 1</h3>
+				<h3>Feeds</h3>
 				<nav>
 					<ul>
 						<li>
@@ -217,15 +210,6 @@ echo '<!DOCTYPE html>
 
 
 }
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	
 	public function readPostagemId($idPostagem){
 		$postagemModel = new PostagemModel();	
@@ -288,18 +272,35 @@ echo '<!DOCTYPE html>
 	$lista=[];
 	if (!is_null($imagem)){
 	foreach($imagem as $img){
+	
+
 	if ($i<3){
-	$lista[] = '<img src = "..\PHP\ImagemView.php?id='.$img->id.'&operacao=1"/>';
+	$lista[] = '<img src = "..\Views\ImagemView.php?id='.$img->id.'&operacao=1"/>';
 	$i++;
 	}
+	
+	
 	else{
 	break;
 	}
-	
 	}
 	}
 	return $lista;
 	}
+	public function showImagens ($imagem){
+	$i=0;
+	$lista=[];
+	if (!is_null($imagem)){
+	foreach($imagem as $img){
+	$lista[] = '<img src = "..\Views\ImagemView.php?id='.$img->id.'&operacao=1"/>';
+	}
+	}
+	return $lista;
+	}
+	
+	
+	
+	
 	public function listarTopicos($tipoPostagem){
 		$postagemModel = new PostagemModel();
 		return $postagem = $postagemModel->read("idTipoPostagem","1", 3);
@@ -343,7 +344,7 @@ echo '<!DOCTYPE html>
 		}*/
 		
 		$result = array_merge($postagens,$postagensTags);
-		//$postFinal[]=$result[0];
+		$postFinal=[];
 		for($c=0;$c<count($result);$c++){
 
 			$same = false;

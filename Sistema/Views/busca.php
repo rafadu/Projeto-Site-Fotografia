@@ -1,4 +1,21 @@
 <!DOCTYPE html>
+<?php 
+/**
+ * Description of Connection
+ *
+ * @author Andrew
+ *
+ * Somente para testes
+ */
+require_once("..\Controllers\PostagemController.php"); 
+ $controller = new PostagemController();
+ if (isset($_GET["buscar"])){
+ $pagBusca = $controller->buscar($_GET["buscar"]);
+ }
+ /*else if($_SERVER['REQUEST_METHOD'] == 'POST'){
+ $pagBusca = $controller->buscar($_POST["txtBusca"]);
+ }*/
+ ?>
 <html>
 	<head>
 		<meta charset="utf-8"/>
@@ -29,18 +46,37 @@
 						<a href="busca.php">Arquivo</a>
 					</li>
 				</ul>
+				<div>
+					<form method="get" id="busca" action="#">
+						<input type="text" id="txtBusca" name="buscar" value="Pesquise postagens..."/>
+						<input type="submit" id="btnBusca" name="ok" value=""/>
+					</form>
+				</div
 			</nav>
 		</header>
 		<main id="main">
 			<section>
 				<article>
-					<h2>Meus contatos</h2>
-					<p>Cobertura de casamentos, festas, batizados, eventos em geral, ensaios internos e externos. Mande um email para:<br>
-						<br> fraanletzel@gmail.com
-						<br> francielle.stos@gmail.com<br>
-						<br> Ou ligue para:
-						<br> (13)8815-8480
-						<br> (13)8198-2972<br></p>
+					<h2>Arquivos do site</h2>
+					<ul id="resultado">
+					<?php
+						 /*if ($_SERVER['REQUEST_METHOD'] == 'POST' or isset($_GET["buscar"])){
+						foreach ($pagBusca as $post){
+							echo "<li><a href=#>$post->titulo</a></li>";
+						}
+						foreach ($pagBusca["porTags"] as $post){
+							echo "<li><a href=#> $post->titulo </a></li>";
+						}
+						}*/
+						
+						if ($_SERVER['REQUEST_METHOD'] == 'POST' or isset($_GET["buscar"])){
+						//print_r($pagBusca);
+						foreach ($pagBusca as $post){
+							echo "<li><a href='$post->titulo-$post->id.php'>$post->titulo</a></li>";
+						}
+						}
+					?>
+					</ul>
 				</article>
 			</section>
 		</main>

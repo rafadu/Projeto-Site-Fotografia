@@ -1,7 +1,7 @@
 <?php
-require_once("..\..\Application\Connection.php");
-require_once("..\..\Data Objects\Tag.php");
-require_once("..\..\Application\ICrud.php");
+require_once("..\Application\Connection.php");
+require_once("..\Data Objects\Tag.php");
+require_once("..\Application\ICrud.php");
 /**
  * Description of TagModel
  *
@@ -15,12 +15,7 @@ class TagModel implements ICrud{
         try{
             //query de insert
             $query="INSERT INTO tag(tag,idPostagem) VALUES ('$object->tag',$object->idPostagem)";
-            //instancia conexão
-            //--$mysqli = Application\Connection::Open();
-            //executa o insert
-            
             $mysqli = new mysqli("localhost", "root", "", "fotografia");
-            
             $mysqli->query($query);
             //fecha o mysqli
             $mysqli->close();

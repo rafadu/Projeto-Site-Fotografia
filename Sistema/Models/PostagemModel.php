@@ -4,9 +4,9 @@
 *
 * @author Lucas
 */
-require_once("..\..\Application\Connection.php");
-require_once("..\..\Data Objects\Imagem.php");
-require_once("..\..\Application\ICrud.php");
+require_once("..\Application\Connection.php");
+require_once("..\Data Objects\Imagem.php");
+require_once("..\Application\ICrud.php");
 use Application\Connection;
 use Data\Object\Postagem;
 use Application\ICrud;
@@ -17,7 +17,7 @@ class PostagemModel implements Application\ICrud{
              $query="INSERT INTO postagem(titulo,texto,dataCriacao,isAtivo,idTipoPostagem) VALUES ('$object->titulo','$object->texto','$object->dataCriacao',$object->isAtivo,$object->tipoPostagem)";
              //instancia conexao
              //$mysqli = Application\Connection::Open();
-			 $mysqli = new mysqli("localhost", "rafadu", "rafael916152", "fotografia");
+			 $mysqli = new mysqli("localhost", "root", "", "fotografia");
              //executa o insert
              $mysqli->query($query);
              //fecha o mysqli
