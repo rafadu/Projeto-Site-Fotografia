@@ -16,8 +16,9 @@ class PostagemModel implements Application\ICrud{
              //query de insert
              $query="INSERT INTO postagem(titulo,texto,dataCriacao,isAtivo,idTipoPostagem) VALUES ('$object->titulo','$object->texto','$object->dataCriacao',$object->isAtivo,$object->tipoPostagem)";
              //instancia conexao
-             //$mysqli = Application\Connection::Open();
-			 $mysqli = new mysqli("localhost", "rafadu", "rafael916152", "fotografia");
+			 $conn = new Connection();
+			 $dbArray = $conn->Open();
+             $mysqli = new mysqli($dbArray['address'],$dbArray['dbuser'],$dbArray['dbpassword'],$dbArray['dbname']);
              //executa o insert
              $mysqli->query($query);
              //fecha o mysqli
@@ -96,9 +97,11 @@ class PostagemModel implements Application\ICrud{
              //finalização da query
                 
              //conexão
-             $conn = new mysqli("localhost", "rafadu", "rafael916152", "fotografia");
+			 $conn = new Connection();
+			 $dbArray = $conn->Open();
+             $mysqli = new mysqli($dbArray['address'],$dbArray['dbuser'],$dbArray['dbpassword'],$dbArray['dbname']);
              //executa o select, o resultdo é guardado num msqli_result
-             $result = $conn->query($query);
+             $result = $mysqli->query($query);
              //laço para criar o array de Data Objects
              /*
               * fetch_assoc() pega os valores da posição atual na tabela e guarda
@@ -121,7 +124,7 @@ class PostagemModel implements Application\ICrud{
               }
               //fechando o result e conexão
               $result->close();
-              $conn->close();
+              $mysqli->close();
               //retornando array
               return $lista;
              }

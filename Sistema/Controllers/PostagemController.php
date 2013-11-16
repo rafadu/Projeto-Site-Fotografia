@@ -133,7 +133,7 @@ echo '<!DOCTYPE html>
 						<a href="contato.html">Contato</a>
 					</li>
 					<li>
-						<a href="busca.php">Arquivo</a>
+						<a href="busca.php?buscar=">Arquivo</a>
 					</li>
 				</ul>
 			</nav>

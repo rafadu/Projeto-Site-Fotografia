@@ -17,8 +17,9 @@ class Connection {
     //abre a conexão com o banco de dados e retorna um objeto mysqli que permite
     //fazer as operações com o database (gera uma interface para realizar as 
     //operações)
-    public static function Open(){
-        return new mysqli($this->address,  $this->dbuser, $this->dbpassword, $this->dbname);
+    public function Open(){
+	$conn = array("address"=>$this->address,  "dbuser"=>$this->dbuser, "dbpassword"=>$this->dbpassword, "dbname"=>$this->dbname);
+    return($conn);
     }
     
     //OBS:não esqueça de fechar o mysqli depois

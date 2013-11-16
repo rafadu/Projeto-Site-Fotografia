@@ -15,7 +15,9 @@ class TagModel implements ICrud{
         try{
             //query de insert
             $query="INSERT INTO tag(tag,idPostagem) VALUES ('$object->tag',$object->idPostagem)";
-            $mysqli = new mysqli("localhost", "rafadu", "rafael916152", "fotografia");
+			 $conn = new Connection();
+			 $dbArray = $conn->Open();
+             $mysqli = new mysqli($dbArray['address'],$dbArray['dbuser'],$dbArray['dbpassword'],$dbArray['dbname']);
             $mysqli->query($query);
             //fecha o mysqli
             $mysqli->close();
@@ -62,11 +64,11 @@ class TagModel implements ICrud{
 
             //conex�o
             //--$conn = Application\Connection::Open();
-            
-            $conn = new mysqli("localhost", "rafadu", "rafael916152", "fotografia");
-            
+			 $conn = new Connection();
+			 $dbArray = $conn->Open();
+             $mysqli = new mysqli($dbArray['address'],$dbArray['dbuser'],$dbArray['dbpassword'],$dbArray['dbname']);
             //executa o select, o resultado � guardado num mysqli_result
-            $result = $conn->query($query);
+            $result = $mysqli->query($query);
             //la�o para criar o array de Data Objects
             /*
              * fetch_assoc() pega os valores da posi��o atual na tabela e guarda
@@ -86,7 +88,7 @@ class TagModel implements ICrud{
             }
             //fechando result e conex�o
             $result->close();
-            $conn->close();
+            $mysqli->close();
             //retornando array
             return $lista;
         }
